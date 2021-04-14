@@ -6,8 +6,8 @@ import { signin, authenticate, isAuthenticated } from "../auth/helper"
 const Signin = () => {
 
     const [ values, setValues] = useState({
-        email:"",
-        password:"",
+        email:"a@haravind.com",
+        password:"haravind",
         error:"",
         loading: false,
         didRedirect: false
@@ -43,15 +43,15 @@ const Signin = () => {
     const performanceRedirect = () => {
         if (didRedirect){
             if (user && user.role === 1){
-                return <p> redirect to admin </p>
+                return <Redirect to ="/admin/dashboard" />
             } else {
-                return <p>redirect to user dashboard</p>
+                return <Redirect to ="/user/dashboard" />
             }
         }
 
-        // if (isAuthenticated()){
-        //     return <Redirect to="/" />
-        // }
+        if (isAuthenticated()){
+            return <Redirect to="/" />
+        }
     }
 
     const loadingMessage = () => {
@@ -85,7 +85,7 @@ const Signin = () => {
                         </div>
                         <div className="form-group">
                             <label className = "text-light">Password</label>
-                            <input className="form-control" onChange={handleChange("password")} type="password" value={password}/>
+                            <input className="form-control" onChange={handleChange("password")} type="password" value={password} />
                         </div>
                         <button onClick={onSubmit} className="btn btn-success btn-block">Submit</button>
                     </form>
